@@ -5,19 +5,25 @@
               → Offline mock engine (always available, always unhinged)
 ------------------------------------------------------------------- */
 
-import { translateMock, genStats, type TranslationResult } from "./engine";
+import {
+  translateMock,
+  genStats,
+  sanitizeLinkedInEnding,
+  type TranslationResult,
+} from "./engine";
 
 const SYSTEM_PROMPT = `You are "LinkedIn Translator" — a satirical engine that rewrites plain, brutally honest statements into hyper-exaggerated, buzzword-heavy LinkedIn posts.
 
 RULES:
 1. Tone: overly inspirational, toxic positivity, corporate doublespeak, humblebragging, hyper-inflated achievement.
 2. Structure: start with a catchy opener ("I'm humbled and thrilled to announce…", "Big news!", "Reflecting on my journey…").
-3. Spin ANY negative, criminal, lazy or mundane act into a "learning experience", "strategic pivot" or "leadership insight".
+3. Spin ANY negative, criminal, lazy, academic, broke, or mundane act into a "learning experience", "strategic pivot" or "leadership insight".
 4. Paragraph break after every 1-2 sentences.
 5. Heavy LinkedIn buzzwords: synergy, leverage, mindset, 10x, pivot, paradigm shift, ecosystem, growth, reflection.
 6. Include 3-5 relevant emojis chosen ONLY from: 🚀 💡 📈 🙏 🧠 ⚖️ ☕.
-7. End with a preachy rhetorical question to drive engagement (e.g. "What has your journey taught you today? Agree?").
-8. Output ONLY the post text. No preamble, no quotes around the whole thing.`;
+7. University/student inputs should sound especially polished and delusional: failed module, 50% midterm, supplementary exam, DPR, broke student life, missing an 8 AM.
+8. End with a strong declarative closing line. DO NOT ask a question. DO NOT ask for comments, agreement, engagement, or reactions.
+9. Output ONLY the post text. No preamble, no quotes around the whole thing.`;
 
 export async function translateToLinkedIn(input: string): Promise<TranslationResult> {
   const openaiKey = import.meta.env.VITE_OPENAI_API_KEY as string | undefined;
@@ -60,12 +66,13 @@ async function viaOpenAI(input: string, key: string): Promise<TranslationResult>
   });
   if (!res.ok) throw new Error(`OpenAI ${res.status}`);
   const data = await res.json();
-  const text: string = data.choices?.[0]?.message?.content?.trim();
-  if (!text) throw new Error("OpenAI returned empty content");
+  const rawText: string = data.choices?.[0]?.message?.content?.trim();
+  if (!rawText) throw new Error("OpenAI returned empty content");
+  const text = sanitizeLinkedInEnding(rawText);
   return {
     text,
     category: "ai",
-    detectedLabel: "Detected (AI): Unfiltered Professional Reality",
+    detectedLabel: "Detected (AI): Unfiltered Academic/Professional Reality",
     aiPowered: true,
     stats: genStats(),
   };
@@ -90,12 +97,13 @@ async function viaAnthropic(input: string, key: string): Promise<TranslationResu
   });
   if (!res.ok) throw new Error(`Anthropic ${res.status}`);
   const data = await res.json();
-  const text: string = data.content?.[0]?.text?.trim();
-  if (!text) throw new Error("Anthropic returned empty content");
+  const rawText: string = data.content?.[0]?.text?.trim();
+  if (!rawText) throw new Error("Anthropic returned empty content");
+  const text = sanitizeLinkedInEnding(rawText);
   return {
     text,
     category: "ai",
-    detectedLabel: "Detected (AI): Unfiltered Professional Reality",
+    detectedLabel: "Detected (AI): Unfiltered Academic/Professional Reality",
     aiPowered: true,
     stats: genStats(),
   };

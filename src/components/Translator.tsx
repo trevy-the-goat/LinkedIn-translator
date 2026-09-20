@@ -32,10 +32,12 @@ import { cn } from "../utils/cn";
 type Status = "idle" | "loading" | "done";
 
 const PRESETS = [
-  "I was fired",
-  "I got arrested for fraud",
-  "I browsed Reddit for 4 hours at work",
-  "I made coffee for the team",
+  "I failed a module",
+  "I got 50% for my midterm",
+  "I got supplementary exam",
+  "I got DPR",
+  "I'm broke",
+  "I woke up late and missed my 8am",
 ];
 
 const MAX_LEN = 500;
@@ -246,7 +248,7 @@ export default function Translator() {
               onKeyDown={(e) => {
                 if ((e.metaKey || e.ctrlKey) && e.key === "Enter") handleTranslate();
               }}
-              placeholder="Type what actually happened (e.g., 'I slept in and missed a meeting' or 'I got fired')…"
+              placeholder="Type what actually happened (e.g., 'I failed a module', 'I got supplementary exam', or 'I woke up late and missed my 8am')…"
               className="nice-scroll w-full flex-1 bg-transparent text-[15.5px] leading-7 text-slate-800"
             />
 
