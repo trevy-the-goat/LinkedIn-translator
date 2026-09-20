@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LinkedIn Translator — Honesty → Thought Leadership</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A66C2'/%3E%3Cpath d='M18 22h20M18 32h13M18 42h20' stroke='white' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M42 20l7 12-7 12' stroke='white' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --li:#0A66C2; --deep:#004182; --paper:#f6f8fb; --ink:#0f172a;
+  --muted:#64748b; --line:#e2e8f0; --card:#fff;
+  --sans:"Inter",system-ui,sans-serif;
+  --serif:"Instrument Serif",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{
+  min-height:100vh;
+  background-image:radial-gradient(circle,rgba(15,23,42,.055) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+::selection{background:rgba(10,102,194,.16);color:#052e5c}
+.glow{position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:720px;height:420px;background:rgba(10,102,194,.07);filter:blur(80px);pointer-events:none;border-radius:999px}
+header{position:sticky;top:0;z-index:40;backdrop-filter:blur(16px);background:rgba(255,255,255,.75);border-bottom:1px solid rgba(226,232,240,.7)}
+.nav{max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;border-radius:12px;background:var(--li);color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(10,102,194,.4);position:relative}
+.logo svg{width:18px;height:18px}
+.badge{position:absolute;right:-4px;top:-4px;width:14px;height:14px;background:#fff;border-radius:99px;display:grid;place-items:center}
+.badge svg{width:14px;height:14px}
+.brand h1{font-size:15px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.brand h1 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--li)}
+.brand p{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;margin-top:2px}
+.slogan{font-size:13px;color:var(--muted)}
+.slogan em{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--li)}
+.pill{border-radius:999px;background:rgba(10,102,194,.1);color:var(--deep);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(10,102,194,.2)}
+main{position:relative;max-width:1100px;margin:0 auto;padding:48px 20px 0}
+.hero{text-align:center;margin-bottom:44px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;box-shadow:0 2px 12px -2px rgba(15,23,42,.08)}
+.hero h2{font-size:clamp(2.4rem,6.5vw,4.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.02}
+.hero h2 em{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--li);letter-spacing:-.01em}
+.hero p{max-width:540px;margin:20px auto 0;color:var(--muted);font-size:15px;line-height:1.7}
+.card{background:#fff;border:1px solid rgba(226,232,240,.9);border-radius:28px;box-shadow:0 1px 2px rgba(15,23,42,.04),0 12px 32px -12px rgba(15,23,42,.12);overflow:hidden}
+.panes{display:grid;grid-template-columns:1fr 1fr;position:relative}
+.pane{padding:24px 28px;min-height:340px;display:flex;flex-direction:column}
+.pane.out{background:rgba(248,250,252,.7);border-left:1px solid rgba(226,232,240,.8)}
+.lab{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px;min-height:24px}
+.dot{width:8px;height:8px;border-radius:99px;background:#94a3b8}
+.dot.blue{background:var(--li)}
+.lab h3{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#64748b}
+.lab h3 em{font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;color:#94a3b8}
+.lab.out h3{color:var(--deep)}
+.lab.out h3 em{color:rgba(10,102,194,.55)}
+.native{display:inline-flex;align-items:center;gap:4px;border-radius:999px;background:rgba(10,102,194,.1);color:var(--deep);font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(10,102,194,.2)}
+.detect{display:none;align-items:center;gap:6px;border-radius:999px;background:#f1f5f9;color:#64748b;font-family:var(--mono);font-size:10px;padding:4px 10px;border:1px solid var(--line)}
+.detect.on{display:inline-flex}
+textarea{flex:1;width:100%;border:0;outline:0;resize:none;font:15.5px/1.7 var(--sans);background:transparent;color:#1e293b;caret-color:var(--li);min-height:180px}
+textarea::placeholder{color:#94a3b8}
+.row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+.count{font-family:var(--mono);font-size:11px;color:#94a3b8}
+.count.hot{color:#f43f5e}
+.iconbtn{width:28px;height:28px;border:0;background:transparent;border-radius:99px;color:#94a3b8;cursor:pointer;display:grid;place-items:center}
+.iconbtn:hover{background:#f1f5f9;color:#334155}
+.outbox{flex:1;overflow:auto;min-height:180px}
+.empty{height:100%;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;color:#94a3b8}
+.empty .box{width:44px;height:44px;border-radius:16px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;color:rgba(10,102,194,.5);box-shadow:0 2px 12px -2px rgba(15,23,42,.08)}
+.empty p{font-size:14px;line-height:1.5;max-width:26ch}
+.empty span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cbd5e1}
+.post p{font-size:14.5px;line-height:1.75;color:#334155;margin-bottom:1.05rem;white-space:pre-line}
+.post p:first-child{font-size:16px;font-weight:600;color:#0f172a}
+.skel{display:none}
+.skel.on{display:block}
+.bar{height:14px;border-radius:8px;margin-bottom:12px;background:linear-gradient(100deg,#eef2f7 40%,#f8fafc 50%,#eef2f7 60%);background-size:200% 100%;animation:shimmer 1.5s ease-in-out infinite}
+@keyframes shimmer{0%{background-position:120% 0}100%{background-position:-80% 0}}
+.loadline{display:flex;align-items:center;gap:8px;margin-bottom:18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep)}
+.spin{width:14px;height:14px;border:2px solid rgba(10,102,194,.2);border-top-color:var(--li);border-radius:99px;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stats{display:none;flex-wrap:wrap;gap:8px;margin-top:16px}
+.stats.on{display:flex}
+.stat{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-family:var(--mono);font-size:10.5px;color:#475569;box-shadow:0 2px 12px -2px rgba(15,23,42,.08)}
+.stat svg{width:14px;height:14px;color:var(--li)}
+.outfoot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(226,232,240,.7);padding-top:12px;margin-top:12px}
+.facts{font-family:var(--mono);font-size:11px;color:#94a3b8}
+.copy{height:32px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#475569;font-size:12.5px;font-weight:600;padding:0 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.copy:disabled{opacity:.4;cursor:not-allowed}
+.copy.ok{background:#ecfdf5;color:#047857;border-color:#6ee7b7}
+.copy svg,.iconbtn svg{width:14px;height:14px}
+.swap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:99px;background:#fff;border:1px solid var(--line);color:var(--li);display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 12px -2px rgba(15,23,42,.08);z-index:5;transition:transform .4s}
+.swap:hover{transform:translate(-50%,-50%) scale(1.08)}
+.swap.spin{transform:translate(-50%,-50%) rotate(360deg)}
+.swap svg{width:18px;height:18px}
+.bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(226,232,240,.8);padding:20px 24px}
+.presets p{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#94a3b8;margin-bottom:10px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pills button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:12.5px;font-weight:500;color:#475569;cursor:pointer;font-family:var(--sans)}
+.pills button:hover{background:rgba(10,102,194,.06);color:var(--deep);border-color:rgba(10,102,194,.4)}
+.go{position:relative;overflow:hidden;height:48px;border:0;border-radius:999px;background:var(--li);color:#fff;font-size:14px;font-weight:700;padding:0 28px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;box-shadow:0 10px 32px -8px rgba(10,102,194,.38);font-family:var(--sans)}
+.go:hover{background:var(--deep)}
+.go:disabled{cursor:wait}
+.go .kbd{font-family:var(--mono);font-size:10px;padding:4px 6px;border-radius:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.8)}
+.marquee{margin-top:64px;overflow:hidden;border-top:1px solid rgba(226,232,240,.8);border-bottom:1px solid rgba(226,232,240,.8);background:rgba(255,255,255,.6);padding:14px 0}
+.track{display:flex;width:max-content;gap:24px;animation:mq 36s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.track span{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#94a3b8;white-space:nowrap}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:64px 0 0}
+.feat{background:#fff;border:1px solid rgba(226,232,240,.8);border-radius:24px;padding:24px;box-shadow:0 2px 12px -2px rgba(15,23,42,.08);transition:transform .2s}
+.feat:hover{transform:translateY(-4px)}
+.feat .ic{width:44px;height:44px;border-radius:16px;background:rgba(10,102,194,.07);color:var(--li);border:1px solid rgba(10,102,194,.15);display:grid;place-items:center;margin-bottom:18px}
+.feat h4{font-size:15.5px;font-weight:700;letter-spacing:-.02em}
+.feat p{margin-top:8px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+.feat .tag{margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(10,102,194,.7)}
+footer{margin-top:80px;border-top:1px solid rgba(226,232,240,.8);background:rgba(255,255,255,.5);text-align:center;padding:40px 20px}
+footer .ic{width:32px;height:32px;border-radius:8px;background:rgba(10,102,194,.1);color:var(--li);display:grid;place-items:center;margin:0 auto 12px}
+footer p{font-size:12.5px;line-height:1.6;color:var(--muted);max-width:440px;margin:0 auto}
+footer .fine{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#94a3b8;margin-top:10px}
+footer .by{margin-top:10px}
+footer .by em{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--li)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#0f172a;color:#fff;border-radius:999px;padding:12px 20px 12px 16px;font-size:13px;font-weight:500;display:none;align-items:center;gap:10px;z-index:50;box-shadow:0 20px 40px rgba(0,0,0,.25);max-width:92vw;opacity:0;transition:all .3s}
+.toast.on{display:flex;opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:800px){
+  .panes{grid-template-columns:1fr}
+  .pane.out{border-left:0;border-top:1px solid rgba(226,232,240,.8)}
+  .swap{position:relative;left:auto;top:auto;transform:none;margin:-20px auto;display:grid}
+  .swap:hover{transform:scale(1.08)}
+  .features{grid-template-columns:1fr}
+  .slogan,.pill{display:none}
+  .bottom{flex-direction:column;align-items:stretch}
+  .go{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">
+        <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg>
+        <span class="badge"><svg viewBox="0 0 24 24" fill="#0A66C2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.5 14.5-4-4 1.41-1.41L10.5 13.67l5.59-5.59L17.5 9.5l-7 7z"/></svg></span>
+      </div>
+      <div>
+        <h1>LinkedIn <em>Translator</em></h1>
+        <p>PowerPhrase™ 4.2 Turbo</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <p class="slogan">Turn your mundane life into a <em>10x Thought Leader</em> post.</p>
+      <span class="pill">100% cringe-free*</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="chip">Honesty → enterprise-grade doublespeak</div>
+    <h2>Radical honesty in,<br><em>thought leadership out.</em></h2>
+    <p>Paste what actually happened. Receive a post your network never asked for — complete with unearned gratitude, rocket emojis, and one deeply rhetorical question.</p>
+  </section>
+
+  <section class="card">
+    <div class="panes">
+      <div class="pane">
+        <div class="lab">
+          <span class="dot"></span>
+          <h3>Plain English <em>/ the truth</em></h3>
+          <span class="detect" id="detect"></span>
+        </div>
+        <textarea id="input" maxlength="500" placeholder="Type what actually happened (e.g., 'I slept in and missed a meeting' or 'I got fired')…"></textarea>
+        <div class="row">
+          <span class="count" id="count">0 / 500</span>
+          <button class="iconbtn" id="clear" title="Clear" hidden>
+            <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <button class="swap" id="swap" title="Swap languages" type="button">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg>
+      </button>
+
+      <div class="pane out">
+        <div class="lab out">
+          <span class="dot blue"></span>
+          <h3>LinkedIn Speak <em>/ corporate jargon</em></h3>
+          <span class="native">Native fluency</span>
+        </div>
+        <div class="outbox">
+          <div class="empty" id="empty">
+            <div class="box"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/></svg></div>
+            <p>Your exaggerated, engagement-optimized truth will appear here.</p>
+            <span>Awaiting raw honesty</span>
+          </div>
+          <div class="skel" id="skel">
+            <div class="loadline"><div class="spin"></div><span id="loadtxt">Consulting the thought leaders…</span></div>
+            <div class="bar" style="width:75%;height:24px"></div>
+            <div class="bar" style="width:100%"></div>
+            <div class="bar" style="width:94%"></div>
+            <div class="bar" style="width:98%"></div>
+            <div class="bar" style="width:72%"></div>
+            <div class="bar" style="width:96%;margin-top:18px"></div>
+            <div class="bar" style="width:90%"></div>
+            <div class="bar" style="width:58%"></div>
+          </div>
+          <article class="post" id="post" hidden></article>
+        </div>
+        <div class="stats" id="stats"></div>
+        <div class="outfoot">
+          <span class="facts">0 facts · 100% synergy</span>
+          <button class="copy" id="copy" disabled>
+            <svg fill="none" stroke="currentColor" stroke-width="2.1" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span id="copytxt">Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="presets">
+        <p>Or pick a pre-loaded confession</p>
+        <div class="pills">
+          <button data-p="I was fired">I was fired</button>
+          <button data-p="I got arrested for fraud">I got arrested for fraud</button>
+          <button data-p="I browsed Reddit for 4 hours at work">I browsed Reddit for 4 hours at work</button>
+          <button data-p="I made coffee for the team">I made coffee for the team</button>
+        </div>
+      </div>
+      <button class="go" id="go">✦ Translate to LinkedIn <span class="kbd">⌘↵</span></button>
+    </div>
+  </section>
+</main>
+
+<div class="marquee"><div class="track" id="track"></div></div>
+
+<section class="features">
+  <div class="feat">
+    <div class="ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 4a8 8 0 018 8M4 12a8 8 0 018-8"/><circle cx="12" cy="12" r="3"/></svg></div>
+    <h4>10x Vocabulary Engine</h4>
+    <p>4,096 enterprise-grade buzzwords, cross-indexed by how little they mean. Synergy guaranteed in every output.</p>
+    <div class="tag">NLP — Natural Language Padding</div>
+  </div>
+  <div class="feat">
+    <div class="ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 13a8 8 0 0014.5 4M20 11A8 8 0 005.5 7"/><path d="M12 8v4l2 2"/></svg></div>
+    <h4>Cringe Forecast™</h4>
+    <p>Real-time analytics project impressions, recruiter outreach, and the exact percentage of secondhand embarrassment.</p>
+    <div class="tag">Now with regret telemetry</div>
+  </div>
+  <div class="feat">
+    <div class="ic"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 3l7 4v5c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+    <h4>Zero Accuracy Guarantee</h4>
+    <p>No fact-checking layer was installed, ever. What you confess gets rebranded — never verified.</p>
+    <div class="tag">Fact-free since launch</div>
+  </div>
+</section>
+
+<footer>
+  <div class="ic"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg></div>
+  <p>LinkedIn Translator is satire. Not affiliated with LinkedIn, your employer, or anyone with dignity.</p>
+  <p class="fine">Side effects may include recruiters, endorsements, and existential dread</p>
+  <p class="by">Designed by <em>Rovert</em></p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const pick = a => a[Math.floor(Math.random()*a.length)];
+const join = a => a.join("\n\n");
+const POSTS = {
+  arrested: () => join([
+    "Reflecting on my journey… 🧠",
+    "This week I completed an unplanned, fully immersive compliance residency. Handcuffs included. Transportation provided.",
+    "Allegations are just KPIs you haven't rebranded yet. ⚖️",
+    "\"Fraud\" was, at its core, an aggressive approach to revenue optimization paired with a distributed interpretation of ownership. I wasn't stealing — I was stress-testing the honor system at enterprise scale.",
+    "Key insight: you haven't truly led until you've presented quarterly results to a judge. 📈",
+    "I'm now channeling every lesson into my upcoming masterclass, \"Ethical Boundaries in Hypergrowth.\" Attendance is mandatory for me, voluntarily inspiring for everyone else.",
+    "Huge thank-you to my legal team — the only growth hackers who bill by the hour and deliver by the decade. 🙏",
+    "What has YOUR counsel advised you never to admit online? Sound off below. 🚀"
+  ]),
+  fired: () => join([
+    "I'm humbled and thrilled to announce that my organization and I have mutually agreed that my growth had officially outpaced their org chart. 🚀",
+    "Yesterday, HR gifted me something most managers never will: total calendar clarity.",
+    "Being \"fired\" is simply a company admitting, in writing, that your personal brand has achieved escape velocity. 📈",
+    "No salary? No problem. Abundance is a mindset, and rent is merely a legacy subscription model I am now free to emotionally cancel.",
+    "To my former manager — thank you for the beautifully facilitated career-decompression workshop. The exit interview was the most engaged you've ever been in my development. 🙏",
+    "I am now open to work, open to podcasts, and aggressively open to podcasts about work. 💡",
+    "What has YOUR exit velocity taught you about abundance? Agree?"
+  ]),
+  quit: () => join([
+    "Thrilled to announce my next chapter: everywhere else. 🚀",
+    "After meaningful reflection — and a borderline poetic exit survey — I have decided to consciously uncouple from my role.",
+    "Quitting isn't leaving. It's graduating with honors from a curriculum of meetings that could have been emails. 📈",
+    "I didn't burn a single bridge today. I simply converted them into runway for takeoff. 💡",
+    "Massive gratitude to everyone who shaped this journey, and an end-to-end thank-you to the office chair that supported me more than leadership ever did. 🙏",
+    "My DMs are open, my calendar is clear, and my notice period was, frankly, chef's kiss.",
+    "What door did closing a door open for YOU? Agree?"
+  ]),
+  promoted: () => join([
+    "I'm beyond humbled to announce that, after several grueling quarters of baseline competence, the market has officially validated my personal brand. 🚀",
+    "Promotions aren't handed out — they're manifested through strategic proximity to leadership and airtight Reply-All discipline. 📈",
+    "To everyone who said \"keep your head down\": my head was never down. It was up, scanning for trajectory like a lighthouse of ambition. 💡",
+    "The new title is bigger. The responsibilities are vaguer. The headline writes itself.",
+    "Massive thanks to my team, whose output I will continue to leverage at scale. 🙏",
+    "Remember: you're not climbing a ladder — you're ascending a narrative.",
+    "Who else is manifesting their next level today? Agree?"
+  ]),
+  rejected: () => join([
+    "Big news from my job-search pipeline. 📈",
+    "After six rounds, a take-home assignment, and a culture interview with the founder's dog, I'm thrilled to announce I've been selected to remain exactly where I am.",
+    "Rejection is simply the market admitting my rate exceeds its imagination. 💡",
+    "The hiring manager called me \"overqualified.\" I prefer \"pre-legendary.\" 🚀",
+    "Every \"we've decided to move forward with other candidates\" is a free resilience masterclass — and I've now completed more masterclasses than most MBA programs.",
+    "Ghosting isn't unprofessional when it's mentoring you in detachment. 🙏",
+    "The search continues. The narrative? Unstoppable.",
+    "Recruiters: what don't you understand about overdelivering at interview scale? Agree?"
+  ]),
+  failed: () => join([
+    "Vulnerability time. 🧠",
+    "Yesterday I took something down for 47 unforgettable minutes. Today? I took down the notion that I'd ever play it safe.",
+    "Failure isn't falling short — it's user-testing reality. I didn't break the system; I performed an unscheduled, high-fidelity resilience audit at company scale. 💡",
+    "Every 500 error is a thousand-person lesson in stakeholder communication.",
+    "My incident report ran four pages. My personal growth? Boundless. The uptime will recover — the insights are forever. 🚀",
+    "To the teammate it woke at 3 AM: your sacrifice is my keynote origin story. Thank you for your service. 🙏",
+    "What's the most expensive lesson that ever paid for itself? Agree?"
+  ]),
+  hungover: () => join([
+    "Reflecting on last night's relationship-building sprint… 🧠",
+    "Somewhere between the third and fourth round of \"networking,\" I forged several high-bandwidth strategic partnerships I can no longer recall but will absolutely leverage.",
+    "A hangover is simply a full-day, body-hosted retrospective. 💡",
+    "Key insights from today's execution at 40% capacity: hydration scales, tequila doesn't, and the mute button forgives everything. 📈",
+    "To the colleague who said \"one quick drink\" — your vision outran our collective bandwidth, and I respect that.",
+    "Growth happens outside the comfort zone. Mine is currently anywhere without fluorescent lighting. 🙏",
+    "How do YOU convert zero-proof regrets into full-proof leadership? Agree?"
+  ]),
+  cried: () => join([
+    "Vulnerability post. 🙏",
+    "Today I experienced a high-bandwidth empathy event in the third-floor restroom — and I have never felt more aligned with my authentic leadership brand.",
+    "Crying at work isn't weakness. It's your values system syncing with the cloud in real time. 💡",
+    "Tears are just data that never made it into the dashboard. 📈",
+    "While others built walls, I built wet pathways to psychological safety. My mascara ran — but so did my emotional intelligence, at 10x throughput. 🚀",
+    "To the intern who brought tissues: that is stakeholder management. Learn.",
+    "When did you last let your feelings deliver shareholder value? Agree? 🧠"
+  ]),
+  scrolling: () => join([
+    "I don't usually share this, but radical transparency is my personal brand. 💡",
+    "Today I completed a self-directed, four-hour deep dive into distributed sentiment analysis — colloquially known as \"scrolling Reddit.\"",
+    "While colleagues saw procrastination, I was conducting ethnographic research across 12 sub-communities, benchmarking meme velocity and stress-testing the modern attention economy. 📈",
+    "Zero emails answered. Zero standups attended. Immeasurable vibes harvested.",
+    "Multitasking isn't a distraction — it's parallel processing for the modern knowledge ecosystem. 🧠",
+    "Sometimes the most strategic contribution you can make to your employer is absolutely nothing, executed flawlessly, at scale. 🚀",
+    "To my employer, who is definitely reading this: synergy.",
+    "How do YOU disguise professional development as procrastination? Agree? 🙏"
+  ]),
+  coffee: () => join([
+    "Big news. ☕",
+    "This morning I architected and deployed a bespoke caffeine-enablement program across a previously underserved team.",
+    "Was it \"just coffee\"? Only to those lacking vision. Leaders don't make beverages — we build ecosystems of alertness. 🚀",
+    "I owned the entire value chain: ethical water sourcing, grind-size optimization, mug-to-mouth logistics, and post-sip stakeholder engagement. 📈",
+    "Nobody asked me to. That is precisely the point. Servant leadership never appears in the job description, because job descriptions never saw me coming. 🙏",
+    "Early metrics show team productivity up 4% — a figure I generated using the same methodology as the pot itself: strong, dark, and impossible to verify.",
+    "Small acts. Monumental aroma. Infinite synergy. 💡",
+    "What will YOU brew today? Agree?"
+  ]),
+  slept: () => join([
+    "I'm humbled to share a personal milestone. 📈",
+    "This morning, my body made a strategic scheduling decision without consulting my calendar — and I missed a 9:00 AM sync.",
+    "\"I overslept\" is the old language. The new language: I underwent a body-led, circadian-aligned wellness intervention with REM-heavy deliverables. 🧠",
+    "The meeting happened anyway. It could have been an email. The email could have been a lesson about boundaries.",
+    "Rest is not the absence of work — it is the pre-work of greatness. While the org chart marched on, my subconscious was busy 10x-ing tomorrow's ideation pipeline. 🚀",
+    "Leaders: normalize asynchronous unconsciousness. The ROI is fully measurable in REM cycles. 🙏",
+    "When did you last let your body calendar-invite YOU? Agree?"
+  ]),
+  lazy: () => join([
+    "I'll say what nobody else on this platform will. 🚀",
+    "Today I accomplished absolutely nothing — and it was the most strategically aligned day of my quarter.",
+    "Doing nothing is not the absence of work. It is a full-stack audit of why we work at all. 💡",
+    "While the inbox burned, I maintained a flawless uptime of zero deliverables with 100% availability for reflection. 📈",
+    "The grindset crowd won't tell you this: stillness is a deliverable. Presence is a pipeline. My calendar was empty — and, for eight uninterrupted hours, so was my imposter syndrome. 🙏",
+    "Leaders, normalize scheduled strategic idling. The ROI is immeasurable — I checked repeatedly, instead of working.",
+    "What did YOU not accomplish today? Agree? 🧠"
+  ])
+};
+const CATS = [
+  [/\\b(arrest|fraud|jail|prison|embezzl|launder|handcuff|ponzi|indict|lawsuit|sued|guilty|felon|crime|criminal|illegal|scam|tax evasion|dui|bail)\\b/i,"arrested","Detected: Aggressive Compliance Exposure"],
+  [/\\b(fired|let go|terminated|laid ?off|sacked|dismissed|canned|axed|redundant|downsized|severance)\\b/i,"fired","Detected: Sudden Career Decompression"],
+  [/\\b(quit|resign|gave (my )?notice|walked out|rage[- ]?quit|two weeks)\\b/i,"quit","Detected: Unscheduled Emancipation"],
+  [/\\b(promot|new job|got hired|job offer|raise|new role|signed an offer)\\b/i,"promoted","Detected: Baseline Competence, Rewarded"],
+  [/\\b(reject|ghosted|no offer|didn't get the (job|role)|failed (the |my )?interview|interview)\\b/i,"rejected","Detected: Pipeline Velocity"],
+  [/\\b(fail|mistake|error|broke|bug|crash|deleted|outage|screwed up|messed up|botched|dropped (prod|production)|typo)\\b/i,"failed","Detected: Courageous Iteration"],
+  [/\\b(hangover|hungover|drunk|wasted|tequila|beer|wine|cocktail|party|vomit|puked|blackout)\\b/i,"hungover","Detected: Liquid Networking Aftermath"],
+  [/\\b(cr(y|ied|ying)|tears|sob|breakdown|panic attack|anxious|depressed|overwhelmed)\\b/i,"cried","Detected: High-Bandwidth Empathy Event"],
+  [/\\b(reddit|twitter|instagram|tiktok|youtube|netflix|binge|doomscroll|brows|scroll|video games|gaming|watched tv|social media)\\b/i,"scrolling","Detected: Competitive Leisure"],
+  [/\\b(coffee|latte|espresso|cappuccino|brew|bean|barista|tea run)\\b/i,"coffee","Detected: Beverage-Based Leadership"],
+  [/\\b(slept in|overslept|slept|nap|alarm|woke up late|missed (a |the |my )?meeting|running late|was late|snoozed)\\b/i,"slept","Detected: Circadian Non-Compliance"],
+  [/\\b(nothing|lazy|procrastinat|slacked|day off|no work|zoned out|stared at|didn't do anything|wasted (the )?day)\\b/i,"lazy","Detected: Strategic Inactivity"]
+];
+function generic(input){
+  const t = input.trim().replace(/[.!\\s]+$/,"");
+  return join([
+    pick(["I'm humbled and thrilled to announce:","Big news.","Reflecting on my journey today.","I don't usually post on here — but today calls for it.","Some personal news:","Vulnerability alert. 💡","This may be controversial. It's also true."]),
+    '"'+t+'"',
+    pick(["I wrote those words at 7:14 AM. By 7:16, they were core IP. 💡","Say it out loud. Now say it again, but as a KPI. That is growth. 🚀","Yesterday that was a confession. Today it's a case study. The only thing that changed was the font choice. 📈","In the old paradigm, that was a problem. In the new paradigm, it's a podcast episode. 🧠","Most people would hide that. Thought leaders package it. 🙏"]),
+    pick(["Here's what nobody tells you: every mundane moment is a masterclass if you italicize enough of it.","The difference between a setback and a setup is a well-lit ring light and the word \"journey.\" 💡","Growth doesn't ask for permission. It asks for engagement. 📈","Your average Tuesday is someone's TEDx. Package accordingly. 🚀","Synergy. Paradigm. Ecosystem. Say them with me. Now say them to your manager. 🧠","I didn't choose the pivot. The pivot conducted a thorough discovery call and chose me."]),
+    pick(["Mindset isn't everything — it's the only thing, multiplied by ten. 🧠","Was it ideal? No. Was it leverage? Also no — until this post. 🙏","The real ROI was the engagement we farmed along the way. 🚀"]),
+    pick(["What mundane victory are YOU inflating today? Agree?","Your turn — when did a setback become your setup? Sound off below.","Leaders, am I wrong? Tell me in the comments. 🚀","What would your personal board of directors say? Agree? 🙏"])
+  ]);
+}
+function translate(input){
+  const cat = CATS.find(c => c[0].test(input));
+  return {
+    text: cat ? POSTS[cat[1]]() : generic(input),
+    label: cat ? cat[2] : pick(["Detected: Raw, Unmonetized Candor","Detected: Pre-Humblebrag Honesty","Detected: Chronically Online Truthfulness"]),
+    stats: {
+      impressions: Math.floor(12000+Math.random()*328000),
+      recruiters: Math.floor(2+Math.random()*44),
+      cringe: Math.floor(63+Math.random()*36)
+    }
+  };
+}
+function fmt(n){ return n>=1000 ? (n/1000).toFixed(1).replace(/\\.0$/,"")+"K" : String(n); }
+
+const $ = id => document.getElementById(id);
+const input = $("input"), count = $("count"), clear = $("clear");
+const empty = $("empty"), skel = $("skel"), post = $("post");
+const stats = $("stats"), copy = $("copy"), copytxt = $("copytxt");
+const go = $("go"), detect = $("detect"), loadtxt = $("loadtxt"), toast = $("toast");
+let current = "", loading = false;
+const LINES = ["Consulting the thought leaders…","Inflating achievements 10x…","Adding unearned gratitude…","Pivoting to synergy…","Inserting rhetorical question…","Reticulating buzzwords…"];
+
+input.addEventListener("input", () => {
+  count.textContent = input.value.length+" / 500";
+  count.classList.toggle("hot", input.value.length > 450);
+  clear.hidden = !input.value.length;
+});
+clear.addEventListener("click", () => {
+  input.value = ""; input.dispatchEvent(new Event("input"));
+  empty.hidden = false; skel.classList.remove("on"); post.hidden = true;
+  stats.classList.remove("on"); copy.disabled = true; detect.classList.remove("on");
+  current = ""; input.focus();
+});
+document.querySelectorAll(".pills button").forEach(b => b.addEventListener("click", () => {
+  input.value = b.dataset.p; input.dispatchEvent(new Event("input")); run();
+}));
+go.addEventListener("click", run);
+input.addEventListener("keydown", e => { if((e.metaKey||e.ctrlKey) && e.key==="Enter") run(); });
+$("swap").addEventListener("click", () => {
+  $("swap").classList.add("spin");
+  setTimeout(()=>$("swap").classList.remove("spin"),400);
+  showToast("Reverse translation unavailable — corporate doublespeak cannot decompose back into human honesty.");
+});
+copy.addEventListener("click", async () => {
+  if(!current) return;
+  try { await navigator.clipboard.writeText(current); copy.classList.add("ok"); copytxt.textContent="Copied!"; setTimeout(()=>{copy.classList.remove("ok");copytxt.textContent="Copy";},1800); }
+  catch { showToast("Clipboard blocked by your browser. Peak corporate security."); }
+});
+function showToast(msg){
+  toast.textContent = msg; toast.classList.add("on");
+  clearTimeout(showToast.t); showToast.t = setTimeout(()=>toast.classList.remove("on"), 3400);
+}
+function run(){
+  if(loading) return;
+  const text = input.value.trim();
+  if(!text){ showToast("Type something incriminating first — the algorithm needs source material."); input.focus(); return; }
+  loading = true; go.disabled = true; go.textContent = "Thought-leading…";
+  empty.hidden = true; post.hidden = true; stats.classList.remove("on"); copy.disabled = true;
+  skel.classList.add("on");
+  let i=0; loadtxt.textContent = LINES[0];
+  const iv = setInterval(()=>{ i=(i+1)%LINES.length; loadtxt.textContent=LINES[i]; }, 520);
+  setTimeout(()=>{
+    clearInterval(iv);
+    const r = translate(text);
+    current = r.text;
+    post.innerHTML = r.text.split(/\\n\\n+/).map(p=>"<p>"+p.replace(/</g,"&lt;")+"</p>").join("");
+    detect.textContent = r.label; detect.classList.add("on");
+    stats.innerHTML = `<span class="stat">↗ ${fmt(r.stats.impressions)} projected impressions</span><span class="stat">☺ ${r.stats.recruiters} recruiters notified</span><span class="stat">♨ ${r.stats.cringe}% cringe coefficient</span>`;
+    skel.classList.remove("on"); post.hidden=false; stats.classList.add("on"); copy.disabled=false;
+    loading=false; go.disabled=false; go.innerHTML='✦ Translate to LinkedIn <span class="kbd">⌘↵</span>';
+  }, 1400+Math.random()*600);
+}
+const words = ["SYNERGY","LEVERAGE","MINDSET","10X","PIVOT","PARADIGM SHIFT","ECOSYSTEM","GROWTH","REFLECTION","HUMBLEBRAG","THOUGHT LEADERSHIP","GRATITUDE","BANDWIDTH","CIRCLE BACK","DEEP DIVE","LOW-HANGING FRUIT"];
+$("track").innerHTML = words.concat(words).map(w=>"<span>"+w+"  ✦</span>").join("");
+</script>
+</body>
+</html>
